@@ -1,3 +1,4 @@
+import React from "react";
 /* Search Form
 *  
 * props: 
@@ -11,29 +12,32 @@
 */
 
 class SearchForm extends React.Component {
+
 	state = {
-		formData: { searchTerm: '' }
+		 searchTerm: '' 
 	};
 
 	// Updates form input
 	handleChange = (evt) => {
-		this.setState({ searchTerm: evt.target.value });
+		this.setState({  searchTerm: evt.target.value  });
 	};
 
 	// Calls parent function and clear form
 	handleSubmit = (evt) => {
 		evt.preventDefault();
 		//helper function from parent, add to here
-		this.setState({ searchTerm: "" });
+		const searchStories = this.props.search;
+		searchStories(this.state.searchTerm);
+		this.setState({ searchTerm: '' });
 	};
 
 	render() {
 		return (
-			<form className="SearchForm">
+			<form className="SearchForm" onSubmit={this.handleSubmit}>
 				<input
 					className="SearchForm-input"
 					name="SearchTerm"
-					value={this.formData.searchTerm}
+					value={this.state.searchTerm}
 					placeholder="Search Term"
 					onChange={this.handleChange}
 				/>
@@ -42,3 +46,6 @@ class SearchForm extends React.Component {
 		);
 	}
 }
+
+
+export default SearchForm;
